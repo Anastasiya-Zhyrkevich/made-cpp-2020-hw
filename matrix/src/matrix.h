@@ -22,14 +22,18 @@ public:
     Matrix(const Matrix& copy);
     Matrix& operator=(const Matrix& a);
 
+    ~Matrix();
+    
     double& get(size_t row, size_t col);
     const double& get(size_t row, size_t col) const;
     void set(size_t row, size_t col, const double& value);
     void resize(size_t new_rows, size_t new_cols);
+    
 
-    /* ??? */ operator[](size_t row);
-    /* ??? */ operator[](size_t row) const;
+    double* operator[](size_t row);
+    const double * operator[](size_t row) const;
 
+    
     Matrix& operator+=(const Matrix& a);
     Matrix& operator-=(const Matrix& a);
     Matrix& operator*=(const Matrix& a);
@@ -54,16 +58,24 @@ public:
     bool operator==(const Matrix& a) const;
     bool operator!=(const Matrix& a) const;
 
+    size_t getRows() const;
+    size_t getCols() const;
     // Your code goes here...
+private:
+    size_t rows;
+    size_t cols;
 
+    double ** data;
+
+    void clear_data();
 };
 
-
-Matrix operator*(const double& a, const Matrix& b);
-
-std::ostream& operator<<(std::ostream& output, const Matrix& matrix);
-std::istream& operator>>(std::istream& input, Matrix& matrix);
 
 
 
 }  // namespace task
+
+task::Matrix operator*(const double& a, const task::Matrix& b);
+
+std::ostream& operator<<(std::ostream& output, const task::Matrix& matrix);
+std::istream& operator>>(std::istream& input, task::Matrix& matrix);
